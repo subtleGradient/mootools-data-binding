@@ -57,6 +57,8 @@ Class.Mutators.ExtendsNative=function(self,klass){
 var ObservableData = {
 	
 	set: function(key,value){
+		if(this.get(key) == value)
+			return this;
 		this.fireEvent('set:'+key, [value, key]);
 		this.fireEvent('set', [value, key]);
 		if(this.has && !this.has(key))
