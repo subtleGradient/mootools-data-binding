@@ -42,6 +42,28 @@ describe('ObservableHash', {
 		).should_be( myHash           .get(0)
 		
 		);
+	},
+	
+	'should fire events for CRUD': function(){
+		
+		var C,R,U,D;
+		
+		myObservableHash.addEvents({
+			'add'   : function(){C=true},
+			'get'   : function(){R=true},
+			'set'   : function(){U=true},
+			'erase' : function(){D=true}
+		});
+		
+		myObservableHash.set   ('CRUD',1);
+		myObservableHash.get   ('CRUD');
+		myObservableHash.set   ('CRUD',2);
+		myObservableHash.erase ('CRUD');
+		
+		value_of(C).should_be_true();
+		value_of(R).should_be_true();
+		value_of(U).should_be_true();
+		value_of(D).should_be_true();
 	}
 
 });

@@ -31,7 +31,7 @@ var Builder = {
 		},
 
 		specs: {
-			'Plugins' : ['ObservableHash']
+			'Plugins' : ['HashClass','ObservableHash']
 		}
 	},
 
