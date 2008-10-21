@@ -27,7 +27,7 @@ var Builder = {
 	scripts: {
 		source: {
 			'../Demos': ['mootools'],
-			'Plugins' : ['ObservableHash']
+			'Plugins' : ['ObservableData','HashClass','ObservableHash']
 		},
 
 		specs: {
