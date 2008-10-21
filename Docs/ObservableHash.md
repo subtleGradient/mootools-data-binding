@@ -1,16 +1,20 @@
 Class: ObservableHash {#ObservableHash}
 ===============================
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+**HashClass** is a strict version of the Hash, implemented as a Class. So you can subclass it and Extend it. NOTE: Only supports accessing or setting data with methods. You can't use normal JS Object property access.
+
+**ObservableData** is just a bunch of methods that you can implement on your own classes that provide a standard interface to Observable classes.
+
+**ObservableHash**, extends HashClass, implementing the ObservableData interface. This allows you to addEvents to the ObservableHash instance to observe when events fire for set() and get()
 
 ### Notes:
 
-- ObservableHash requires the page to be in [Standards Mode](http://hsivonen.iki.fi/doctype/).
+- Only supports accessing or setting data with methods. You can't use normal JS Object property access.
 
 ### Implements:
 
-[Options][]
 [Events][]
+[ObservableData][]
 
 ### Syntax:
 
@@ -18,19 +22,11 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 ### Arguments:
 
-1. options  - (*object*, optional) All the [Events][] options in addition to options below.
+1. data  - (*object*, optional) The default data for your ObservableHash.
 
-#### Options:
+### Examples:
 
-* option1 - (*integer*: defaults to 0     ) lorem ipsum.
-* option2 - (*integer*: defaults to 0     ) lorem ipsum.
-* option3 - (*boolean*: defaults to true  ) If set to true,  lorem ipsum.
-* option4 - (*boolean*: defaults to false ) If set to true,  lorem ipsum.
-* option5 - (*boolean*: defaults to true  ) If set to true,  lorem ipsum.
-* option6 - (*boolean*: defaults to false ) If set to false, lorem ipsum.
-* option7 - (*boolean*: defaults to false ) If set to true,  lorem ipsum.
-* option8 - (*boolean*: defaults to false ) If set to true,  lorem ipsum.
-* option9 - (*boolean*: defaults to false ) If set to true,  lorem ipsum.
+	var myObservableHash = new ObservableHash({ key:value });
 
 ### Returns:
 
@@ -38,26 +34,83 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 ## Events:
 
-### eventName
-
-* (*function*) Function to do stuff.
+* **add**
+* **get**
+* **set**
+* **erase**
 
 #### Signature:
 
-	onEventName(arg1, arg2)
+	onSet(key,value)
+	onAdd(key,value)
+	onGet(key)
+	onErase(key)
 
-#### Arguments:
+## *Generated* Events:
 
-1. arg1 - (*object*) Lorem ipsum.
-2. arg2 - (*object*) Lorem ipsum.
+* **add:key**
+* **get:key**
+* **set:key**
+* **erase:key**
 
-### Examples:
+#### Signature:
 
-	var myThing = new ObservableHash({
-		optionl: 1,
-		option8: true
-	});
+	addEvent(  'set:key', function(key,value){})
+	addEvent(  'add:key', function(key,value){})
+	addEvent(  'get:key', function(key){}      )
+	addEvent('erase:key', function(key){}      )
+
+## Methods:
+
+### observeSet
+
+Add the function 'fn' to run when any 'set' event fires:
+
+	observeSet(fn)
+
+Add the function 'fn' to run when the 'set:flarm' event fires:
+
+	observeSet('flarm',fn)
+	OR
+	addEvent('set:'+'flarm', fn)
+
+### observeAdd
+
+Add the function 'fn' to run when any 'add' event fires:
+
+	observeAdd(fn)
+
+Add the function 'fn' to run when the 'add:flarm' event fires:
+
+	observeAdd('flarm',fn)
+	OR
+	addEvent('add:'+'flarm', fn)
+
+### observeGet
+
+Add the function 'fn' to run when any 'get' event fires:
+
+	observeGet(fn)
+
+Add the function 'fn' to run when the 'get:flarm' event fires:
+
+	observeGet('flarm',fn)
+	OR
+	addEvent('get:'+'flarm', fn)
+
+### observeErase
+
+Add the function 'fn' to run when any 'erase' event fires:
+
+	observeErase(fn)
+
+Add the function 'fn' to run when the 'erase:flarm' event fires:
+
+	observeErase('flarm',fn)
+	OR
+	addEvent('erase:'+'flarm', fn)
 
 ### Demos:
 
-- ObservableHash - <http://demos.mootools.net/ObservableHash>
+- ObservableHash - `<none yet>`
+
