@@ -1,6 +1,6 @@
 /*
-Script: Selectors.Children.js
-	Specification Examples of Pseudo Selector :children.
+Script: HashClass.js
+	Specification Examples of HashClass.
 
 License:
 	MIT-style license.

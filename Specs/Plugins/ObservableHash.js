@@ -1,6 +1,6 @@
 /*
-Script: Selectors.Children.js
-	Specification Examples of Pseudo Selector :children.
+Script: ObservableHash.js
+	Specification Examples of ObservableHash.
 
 License:
 	MIT-style license.
@@ -59,6 +59,28 @@ describe('ObservableHash', {
 		myObservableHash.get   ('CRUD');
 		myObservableHash.set   ('CRUD',2);
 		myObservableHash.erase ('CRUD');
+		
+		value_of(C).should_be_true();
+		value_of(R).should_be_true();
+		value_of(U).should_be_true();
+		value_of(D).should_be_true();
+	},
+	
+	'should fire events for specific keys': function(){
+		
+		var C,R,U,D;
+		
+		myObservableHash.addEvents({
+			  'add:mySpecialKey' : function(){C=true},
+			  'get:mySpecialKey' : function(){R=true},
+			  'set:mySpecialKey' : function(){U=true},
+			'erase:mySpecialKey' : function(){D=true}
+		});
+		
+		myObservableHash.set   ('mySpecialKey',1);
+		myObservableHash.get   ('mySpecialKey');
+		myObservableHash.set   ('mySpecialKey',2);
+		myObservableHash.erase ('mySpecialKey');
 		
 		value_of(C).should_be_true();
 		value_of(R).should_be_true();
