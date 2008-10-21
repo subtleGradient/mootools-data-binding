@@ -1,12 +1,12 @@
 /*
 Script: ObservableHash.js
-	MooTools - My Object Oriented JavaScript Tools.
+	A Hash, but observable!
 
 License:
 	MIT-style license.
 
 Copyright:
-	Copyright (c) 2006-2007 [copyright holders](http://).
+	Copyright (c) 2008 [Thomas Aylott](http://subtlegradient.com).
 
 */
 var ObservableHash = new Class({
