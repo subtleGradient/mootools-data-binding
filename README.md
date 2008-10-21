@@ -8,5 +8,5 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 Getting Started
 ---------------
 
-1. First, rename the PluginName.js files to whatever the name of your plugin is
-2. Replace every occurrence of "PluginName" with your plugins actual name
+1. First, rename the ObservableHash.js files to whatever the name of your plugin is
+2. Replace every occurrence of "ObservableHash" with your plugins actual name
