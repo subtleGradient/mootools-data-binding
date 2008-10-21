@@ -1,12 +1,9 @@
-My Plugin Name
-==============
+# **Hash**Class
+**HashClass** is a strict version of the Hash, implemented as a Class. So you can subclass it and Extend it. NOTE: Only supports accessing or setting data with methods. You can't use normal JS Object property access.
 
-Description
------------
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+# Observable**Data**
+**ObservableData** is just a bunch of methods that you can implement on your own classes that provide a standard interface to Observable classes.
 
-Getting Started
----------------
-
-1. First, rename the ObservableHash.js files to whatever the name of your plugin is
-2. Replace every occurrence of "ObservableHash" with your plugins actual name
+# Observable**Hash**
+**ObservableHash**, extends HashClass, implementing the ObservableData interface.  
+This allows you to addEvents to the ObservableHash instance to observe when events fire for set() and get()
