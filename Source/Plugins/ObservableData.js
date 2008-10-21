@@ -18,12 +18,12 @@ var ObservableData = {
 		if(this.get(key) == value)
 			return this;
 		
+		if(this.has && !this.has(key))
+		this.fireEvent('add:'+key, [value, key])
+			.fireEvent('add', [value, key]);
+		
 		this.fireEvent('set:'+key, [value, key])
 			.fireEvent('set', [value, key]);
-		
-		if(this.has && !this.has(key)) this
-			.fireEvent('add:'+key, [value, key])
-			.fireEvent('add', [value, key]);
 		
 		this.parent(key,value);
 		return this;
@@ -49,35 +49,32 @@ var ObservableData = {
 	
 	
 	observeAdd: function(key,fn){
-		if($type(key)!='function') return this;
+		if($type(key)=='function')
+			return this.addEvent('add', key);
 		
-		return this
-			.addEvent('add:'+key, fn)
-			.addEvent('add', key);
+		return this.addEvent('add:'+key, fn)
 	},
 	
 	observeGet: function(key,fn){
-		if($type(key)!='function') return this;
+		if($type(key)=='function')
+			return this.addEvent('get', key);
 		
-		return this
-			.addEvent('get:'+key, fn)
-			.addEvent('get', key);
+		return this.addEvent('get:'+key, fn)
 	},
 	
 	observeSet: function(key,fn){
-		if($type(key)!='function') return this;
+		if($type(key)=='function')
+			return this.addEvent('set', key);
 		
-		return this
-			.addEvent('set:'+key, fn)
-			.addEvent('set', key);
+		return this.addEvent('set:'+key, fn)
 	},
 	
 	observeErase: function(key,fn){
-		if($type(key)!='function') return this;
+		if($type(key)=='function')
+			return this.addEvent('erase', key);
 		
-		return this
-			.addEvent('erase:'+key, fn)
-			.addEvent('erase', key);
+		return this.addEvent('erase:'+key, fn)
 	}
+	
 	
 };
