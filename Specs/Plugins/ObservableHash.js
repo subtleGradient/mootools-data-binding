@@ -49,7 +49,7 @@ describe('ObservableHash', {
 	
 	'should NOT allow direct property access': function(){
 		
-		
+		value_of( myObservableHash.a ).should_be_undefined(); 
 		
 	},
 	
