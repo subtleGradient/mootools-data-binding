@@ -50,7 +50,12 @@ Copyright:
 	
 	Hash.getKeys(Hash).each(function(key){
 		
-		hash_methods[key] = function(){ return this.$data[key].apply(this.$data, arguments); };
+		hash_methods[key] = function(){
+			var result = this.$data[key].apply(this.$data, arguments);
+			if( result== this.$data)
+				return this;
+			return result;
+		};
 		
 	});
 	

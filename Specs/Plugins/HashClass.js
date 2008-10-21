@@ -8,7 +8,7 @@ License:
 
 describe('HashClass', {
 
-	'before all': function(){
+	'before': function(){
 		defaultData = {
 			
 			0:0,
@@ -22,7 +22,7 @@ describe('HashClass', {
 		myHashClass = new HashClass(defaultData);
 	},
 
-	'after all': function(){
+	'after': function(){
 		defaultData = null;
 		
 		myHash = null;
@@ -30,18 +30,15 @@ describe('HashClass', {
 	},
 
 	'should set and get values just like a regular hash': function(){
-		(0
-		); value_of( myHashClass .$data[0]
-		).should_be( myHash      .get(0)
+		value_of( myHashClass.$data                  ).should_be( myHash                  );
 		
-		); value_of( myHashClass .get(0)
-		).should_be( myHash      .get(0)
-		); value_of( myHashClass .set(0, '0 set')
-		).should_be( myHash      .set(0, '0 set')
-		); value_of( myHashClass .get(0)
-		).should_be( myHash      .get(0)
+		value_of( myHashClass.get(0)                 ).should_be( myHash.get(0)           );
+		value_of( myHashClass.set(0,'0 set').$data   ).should_be( myHash.set(0,'0 set')   );
+		value_of( myHashClass.erase(0).$data         ).should_be( myHash.erase(0)         );
 		
-		);
+		value_of( myHashClass.get('a')               ).should_be( myHash.get('a')         );
+		value_of( myHashClass.set('a','a set').$data ).should_be( myHash.set('a','a set') );
+		value_of( myHashClass.erase('a').$data       ).should_be( myHash.erase('a')       );
 	}
 
 });

@@ -13,6 +13,7 @@ Copyright:
 
 var ObservableData = {
 	
+	// return the ObservableData
 	set: function(key,value){
 		if(this.get(key) == value)
 			return this;
@@ -24,19 +25,25 @@ var ObservableData = {
 			.fireEvent('add:'+key, [value, key])
 			.fireEvent('add', [value, key]);
 		
-		return this.parent(key,value);
+		this.parent(key,value);
+		return this;
 	},
 	
+	// return the value
 	get: function(key){
 		this.fireEvent('get:'+key, key)
 			.fireEvent('get', key);
+		
 		return this.parent(key);
 	},
 	
+	// return the ObservableData
 	erase: function(key){
 		this.fireEvent('erase:'+key, key)
 			.fireEvent('erase', key);
-		return this.parent(key);
+		
+		this.parent(key);
+		return this;
 	},
 	
 	

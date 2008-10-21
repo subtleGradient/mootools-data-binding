@@ -6,9 +6,14 @@ License:
 	MIT-style license.
 */
 
+var defaultData;
+var myHash;
+var myObservableHash;
+
 describe('ObservableHash', {
 
-	'before all': function(){
+	'before': function(){
+		
 		defaultData = {
 			
 			0:0,
@@ -22,7 +27,7 @@ describe('ObservableHash', {
 		myObservableHash = new ObservableHash(defaultData);
 	},
 
-	'after all': function(){
+	'after': function(){
 		defaultData = null;
 		
 		myHash = null;
@@ -30,18 +35,29 @@ describe('ObservableHash', {
 	},
 
 	'should set and get values just like a regular hash': function(){
-		(0
-		); value_of( myObservableHash .$data[0]
-		).should_be( myHash           .get(0)
+		value_of( myObservableHash.$data          ).should_be( myHash          ); 
 		
-		); value_of( myObservableHash .get(0)
-		).should_be( myHash           .get(0)
-		); value_of( myObservableHash .set(0, '0 set')
-		).should_be( myHash           .set(0, '0 set')
-		); value_of( myObservableHash .get(0)
-		).should_be( myHash           .get(0)
+		value_of( myObservableHash.get(0)         ).should_be( myHash.get(0)   ); 
+		value_of( myObservableHash.set(0).$data   ).should_be( myHash.set(0)   ); 
+		value_of( myObservableHash.erase(0).$data ).should_be( myHash.erase(0) ); 
 		
-		);
+		value_of( myObservableHash.get('a')         ).should_be( myHash.get('a')   ); 
+		value_of( myObservableHash.set('a').$data   ).should_be( myHash.set('a')   ); 
+		value_of( myObservableHash.erase('a').$data ).should_be( myHash.erase('a') ); 
+		
+	},
+	
+	'should NOT allow direct property access': function(){
+		
+		
+		
+	},
+	
+	'should be chainable': function(){
+		
+		value_of( myObservableHash.set('key','value') ).should_be( myObservableHash );
+		value_of( myObservableHash.erase('key') ).should_be( myObservableHash );
+		
 	},
 	
 	'should fire events for CRUD': function(){
