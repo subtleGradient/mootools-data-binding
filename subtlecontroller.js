@@ -18,6 +18,7 @@ var SubtleController = new Class({
 		keys = $splat(keys);
 		
 		keys.each(this.updateOne, this);
+		try{console.log( "	/update("+keys+")" );}catch(e){};
 	},
 	
 	updateOne: function(key, value){
@@ -30,9 +31,11 @@ var SubtleController = new Class({
 			bindingValue = bindings[0].get();
 		
 		bindings.each(function(binding){
+			if (!binding) return;
 			// if (binding == bindings[0])	return;
 			binding.set(bindingValue);
 		},this);
+		try{console.log( "		/updateOne("+key+")" );}catch(e){};
 	},
 	
 	// addBinding(binding)
@@ -62,7 +65,7 @@ var SubtleController = new Class({
 	// 
 	
 	addBinding: function(bindable, key, bindableKey){
-		try{console.log( "addBinding(" + [bindable, key, bindableKey] + ")" );}catch(e){};
+		try{console.log( "  addBinding(" + [bindable, key, bindableKey] + ")" );}catch(e){};
 		if (key==undefined) return this.addBindings(bindable);
 		var self = this;
 		
@@ -78,10 +81,12 @@ var SubtleController = new Class({
 		
 		var thinggy = {};
 		
-		thinggy.get = function(){
+		thinggy.get = bindableKey.get || function(){
+			console.log('thinggy.get(', key, bindableKey, bindable.get(bindableKey));
 			return bindable.get(bindableKey);
 		};
-		thinggy.set = function(value){
+		thinggy.set = bindableKey.set || function(value){
+			console.log('thinggy.set(', key, bindableKey, value);
 			return bindable.set(bindableKey, value);
 		};
 		
@@ -92,6 +97,7 @@ var SubtleController = new Class({
 		})
 		
 		this.update(key);
+		try{console.log( "  /addBinding(" + [bindable, key, bindableKey] + ")" );}catch(e){};
 		return this.fireEvent('addBinding');
 	},
 	
@@ -110,7 +116,12 @@ var SubtleController = new Class({
 			});
 			break;
 		case 'object':
-			MAPPING = mapping;
+			if (!mapping.set){
+				MAPPING = mapping;
+				break;
+			}
+			
+			MAPPING = { $:mapping };
 			break;
 		default:
 			return this;
@@ -122,7 +133,57 @@ var SubtleController = new Class({
 			this.addBinding(bindable, key, bindableKey);
 		}, this);
 		
+		try{console.log( "/addBindings(" + [bindable, mapping] + ")" );}catch(e){};
 		return this.fireEvent('addBindings');
 	}
 	
 });
+
+SubtleController.Hash = new Class({
+	
+	Extends: SubtleController
+	
+});
+SubtleController.Array = new Class({
+	
+	Extends: SubtleController
+	
+});
+SubtleController.Tree = new Class({
+	
+	Extends: SubtleController
+	
+});
+SubtleController.Defaults = new Class({
+	
+	Extends: SubtleController.Hash
+	
+});
+
+
+// MEDIATING CONTROLLERS
+// Establish the bindings between properties of view objects and properties of the controller object, 
+// and then between those controller properties and specific properties of a model object.
+// 
+//     * Commit and Discard Changes
+//     * Management of Selections
+//     * Placeholder Values
+// 
+// NSController
+//     NSObjectController
+//     NSArrayController
+//     NSUserDefaultsController
+//     NSTreeController
+
+
+// COORDINATING CONTROLLERS
+// Oversee—or coordinate—the functioning of the entire application or of part of the application.
+// 
+//    * Responding to delegation messages and observing notifications
+//    * Responding to action messages
+//    * Managing the life cycle of "owned" objects (for example, releasing them at the proper time)
+//    * Establishing connections between objects and performing other set-up tasks
+// 
+//     NSWindowController
+//     NSDocumentController
+// 
