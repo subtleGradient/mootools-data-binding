@@ -9,7 +9,6 @@ var SubtleController = new Class({
 	initialize: function(data, options){
 		this.setOptions(options);
 		this.bindings = $H(data);
-		window.addEvent('domready',function(){ this.ready = true; }.bind(this));
 		return this.fireEvent('initialize');
 	},
 	
@@ -23,7 +22,6 @@ var SubtleController = new Class({
 	
 	updateOne: function(key, value){
 		try{console.log( "		updateOne("+key+")" );}catch(e){};
-		var self = this;
 		
 		var bindings = this.bindings.get(key);
 		var bindingValue = value;
@@ -34,7 +32,7 @@ var SubtleController = new Class({
 			if (!binding) return;
 			// if (binding == bindings[0])	return;
 			binding.set(bindingValue);
-		},this);
+		}, this);
 		try{console.log( "		/updateOne("+key+")" );}catch(e){};
 	},
 	
@@ -67,12 +65,9 @@ var SubtleController = new Class({
 	addBinding: function(bindable, key, bindableKey){
 		try{console.log( "  addBinding(" + [bindable, key, bindableKey] + ")" );}catch(e){};
 		if (key==undefined) return this.addBindings(bindable);
-		var self = this;
 		
-		if (!this.ready && /element|string/.test($type(bindable))){
-			window.addEvent('domready',function(){
-				self.addBinding(bindable, key, bindableKey);
-			});
+		if (!Browser.loaded && (/element|string/).test($type(bindable))){
+			window.addEvent('domready', this.addBinding.bind(this, arguments));
 			return this;
 		}
 		
@@ -94,7 +89,7 @@ var SubtleController = new Class({
 		
 		if (bindable.addEvent) bindable.addEvent('change', function(){
 			myController.updateOne(key, this.get(bindableKey));
-		})
+		});
 		
 		this.update(key);
 		try{console.log( "  /addBinding(" + [bindable, key, bindableKey] + ")" );}catch(e){};
