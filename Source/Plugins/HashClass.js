@@ -61,5 +61,5 @@ Copyright:
 	
 	HashClass.implement(hash_methods);
 	
-	window.HashClass = HashClass;
+	this.HashClass = HashClass;
 })();
